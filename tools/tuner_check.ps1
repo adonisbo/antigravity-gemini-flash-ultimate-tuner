@@ -62,9 +62,14 @@ if (Test-Path $gGemini) {
         W "[INFO] 编码：UTF-8 without BOM / ANSI"
         $txt = [Text.Encoding]::UTF8.GetString($raw)
     }
-    if ($txt -match "Ultimate Gemini 3 Flash Rules") { WP "[PASS] 内容确认为本工具 Rules" }
-    elseif ($txt -match "Best-Practice-Researcher") { WW "[WARN] 含 Skills 关键词但标题不匹配（可能乱码版本）" }
-    else { WW "[WARN] 内容不是本工具 Rules（可能被覆盖）" }
+    # 兼容旧标题（Ultimate Gemini 3 Flash Rules）和新标题（Antigravity Ultimate Tuner Rules）
+    if (($txt -match "Ultimate Gemini 3 Flash Rules") -or ($txt -match "Antigravity.*Tuner Rules") -or ($txt -match "Antigravity Ultimate Tuner")) {
+        WP "[PASS] 内容确认为本工具 Rules"
+    } elseif ($txt -match "Best-Practice-Researcher") {
+        WP "[PASS] 内容包含 Skills 关键词，确认为本工具 Rules"
+    } else {
+        WW "[WARN] 内容不是本工具 Rules（可能被其他工具覆盖）"
+    }
     W "[INFO] 文件前5行："
     ($txt -split "`n" | Select-Object -First 5) | ForEach-Object { W "        $($_.Trim())" }
 } else {
