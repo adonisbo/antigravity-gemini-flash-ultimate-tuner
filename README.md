@@ -235,15 +235,35 @@ setup.bat
 
 ## ⚙️ 全局 Rules 说明（GEMINI.md）
 
-本工具的 `GEMINI.md` 包含 9 条强制规则。**默认语言为简体中文**，如需切换为英文，将文件内第 5 条规则中的"简体中文"改为"English"即可。
+### ⚠️ 重要：Rules 对所有模型自动加载
 
-核心逻辑：
+根据 Antigravity 官方文档，`GEMINI.md` 会对**所有对话自动加载**，无论你选择哪个模型。这意味着：
 
-1. 任何任务 → 先调用 Best-Practice-Researcher（≥2 次真实搜索）
-2. 涉及规划 → 调用 Architect-Dialogue（对比表 + 树状图 + 确认）
-3. 遇到错误 → 自动 Reflection 循环（禁止说"模型限制"）
-4. 全部输出必须有工具调用证据（禁止 Hallucination）
-5. **语言开关**：规则第 5 条，默认"简体中文"，可改为"English"
+- 使用 **Gemini 3 Flash / GPT-OSS 120B** → LITE MODE 强制约束是必要的，能显著提升质量
+- 使用 **Claude Sonnet 4.6** → STANDARD MODE 建议性约束，避免过度干预
+- 使用 **Gemini 3.1 Pro / Claude Opus 4.6** → PRO MODE 极简规则，避免降效
+
+> Skills 与 Rules 不同：Skills 是**按需加载**的，只有当你的请求语义匹配时才激活，对强模型几乎无负面影响。
+
+### 🔀 模型档位切换方法
+
+打开 `GEMINI.md`，根据当前使用的模型启用对应区块（取消注释），并注释掉其他区块：
+
+| 你选择的模型 | 启用区块 | 操作 |
+|------------|---------|------|
+| Gemini 3 Flash / GPT-OSS 120B | `LITE MODE` | 默认已启用，无需修改 |
+| Claude Sonnet 4.6 | `STANDARD MODE` | 取消注释 STANDARD 区块，注释 LITE 区块 |
+| Gemini 3.1 Pro / Claude Opus 4.6 | `PRO MODE` | 取消注释 PRO 区块，注释 LITE 区块 |
+
+**切换只需两步：**
+1. 用任意文本编辑器打开 `~/.gemini/GEMINI.md`
+2. 注释掉当前区块，取消注释目标区块，保存
+
+### 🌐 语言开关
+
+默认语言为**简体中文**，修改 GEMINI.md 内对应规则行即可切换：
+- 英文：`Language: All responses and code comments in English.`
+- 繁體中文：`語言：所有回覆和程式碼注釋必須使用繁體中文。`
 
 ---
 
