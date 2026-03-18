@@ -3,7 +3,7 @@
 > **经过多轮真实交互调教出的 Gemini 3 Flash 最强配置包**  
 > 让 Gemini 3 Flash 在 [Google Antigravity IDE](https://antigravity.google/) 中接近 Pro 级表现
 
-[![Version](https://img.shields.io/badge/Version-2026.03.17-blue)](.)
+[![Version](https://img.shields.io/badge/Version-2026.03.18-blue)](.)
 [![Platform](https://img.shields.io/badge/Platform-Antigravity%20IDE-orange)](https://antigravity.google/)
 [![Model](https://img.shields.io/badge/Model-Gemini%203%20Flash-green)](.)
 [![License](https://img.shields.io/badge/License-MIT-yellow)](./LICENSE)
@@ -107,47 +107,50 @@ MCP（Model Context Protocol）适合接入**外部工具**（数据库、API、
 antigravity-gemini-flash-ultimate-tuner/
 ├── README.md                              ← 本文件
 ├── GEMINI.md                              ← 全局最强 Rules（核心）
-├── setup.bat                              ← Windows 一键安装（含路径自动检测）
+├── setup.bat                              ← Windows 一键安装（3行纯ASCII启动器）
+├── setup.ps1                              ← 安装主逻辑（PowerShell，无乱码）
 ├── setup.sh                               ← Linux/macOS 一键安装
-├── npx-install.js                         ← npx 命令支持入口
 ├── conflict-check.ps1                     ← PowerShell 冲突检测
+├── npx-install.js                         ← npx 命令支持入口
 ├── package.json                           ← npm 包配置
 ├── LICENSE                                ← MIT 协议
 ├── 更正对比表.md                           ← 对话中错误信息核实记录
+├── tools/                                 ← 工具集
+│   ├── tuner_check.bat                    ← 部署检测启动器（双击运行）
+│   ├── tuner_check.ps1                    ← 部署检测主体（生成桌面报告）
+│   └── conflict_check.bat                 ← 冲突检测启动器
 ├── .github/
 │   └── workflows/
 │       └── validate-skills.yml            ← GitHub Actions CI 验证
 ├── sample_project/                        ← 最小化示例项目
 │   ├── README.md
 │   ├── pyproject.toml
-│   ├── src/
-│   │   └── main.py
-│   └── tests/
-│       └── test_main.py
+│   ├── src/main.py
+│   └── tests/test_main.py
 └── .agent/
     └── skills/
-        ├── Best-Practice-Researcher/      ← 强制先搜索最新实践
-        │   └── SKILL.md
-        ├── Architect-Dialogue/            ← 架构规划 + 方案对比
-        │   └── SKILL.md
-        ├── Code-Reviewer-Debugger/        ← 严格调试 + Reflection
-        │   └── SKILL.md
-        ├── Tester/                        ← 自动生成 + 执行测试
-        │   └── SKILL.md
-        └── Tuner-Update/                  ← Meta-Skill：自检查更新
-            └── SKILL.md
+        ├── Best-Practice-Researcher/SKILL.md
+        ├── Architect-Dialogue/SKILL.md
+        ├── Code-Reviewer-Debugger/SKILL.md
+        ├── Tester/SKILL.md
+        └── Tuner-Update/SKILL.md
 ```
 
 ---
 
 ## 🚀 快速安装
 
-### 方式 A：Windows（推荐，含自动路径检测）
+### 方式 A：Windows（推荐）
 ```bat
-# 1. 进入你的 Antigravity 项目根目录
-# 2. 将本仓库文件复制或 clone 到该目录
-# 3. 双击运行（自动检测 .agent / .agents 并兼容）
+# 1. clone 本仓库到任意目录（推荐放在 Antigravity 项目根目录）
+# 2. 双击运行 setup.bat（自动调用 setup.ps1，无乱码、无循环复制）
 setup.bat
+
+# 也可直接运行 PowerShell 脚本（支持参数）：
+# 静默安装（跳过交互）：
+powershell -ExecutionPolicy Bypass -File setup.ps1 -Silent
+# 仅运行检测（不安装）：
+powershell -ExecutionPolicy Bypass -File setup.ps1 -Check
 ```
 
 ### 方式 B：Linux / macOS
@@ -256,15 +259,23 @@ setup.bat   # Windows
 
 ## 📝 更新日志
 
+### v2026.03.18（稳定性修复版）
+- **修复** setup.bat 中文乱码问题（改为 3 行 ASCII 启动器 + setup.ps1 主逻辑）
+- **修复** xcopy 循环复制错误（改用 PowerShell Copy-Item）
+- **修复** 全局 Skills 安装路径不正确（现在正确写入 `~/.gemini/antigravity/skills/`）
+- **新增** `tools/` 工具目录：tuner_check.bat/ps1（部署检测）、conflict_check.bat
+- **新增** setup.ps1 支持命令行参数：`-Silent`、`-GlobalOnly`、`-Check`
+- setup.ps1 支持自动备份已有 GEMINI.md
+
 ### v2026.03.17（初始发布）
 - 5 个经过多轮真实调教验证的核心 Skills
-- Windows/Linux/macOS 三端安装脚本（含 .agent/.agents 自动检测）
+- Windows/Linux/macOS 三端安装脚本
 - PowerShell 冲突检测脚本
 - npx 安装器支持
 - Meta-Skill（Tuner-Update）：自检查更新机制
-- sample_project：最小化 FastAPI 示例演示 Skills 生效效果
-- GitHub Actions CI：自动验证所有 SKILL.md 格式合规
-- 调教原理章节：解释 Rules + Skills 组合机制
+- sample_project：最小化 FastAPI 示例
+- GitHub Actions CI 工作流
+- 调教原理章节
 
 ---
 
