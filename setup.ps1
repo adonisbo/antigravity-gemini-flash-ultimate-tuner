@@ -108,7 +108,7 @@ function Invoke-ModelSwitch {
             $result.Add($line)
             continue
         }
-        if ($t -match '\[通用规则') {
+        if ($t -match '\[Common Rules\]') {
             $zone = 'COMMON'
             $result.Add($line)
             continue
