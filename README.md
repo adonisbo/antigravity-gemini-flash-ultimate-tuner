@@ -176,11 +176,36 @@ cp -r .agent/skills/* <你的项目>/.agent/skills/
 
 ## ✅ 安装后验证
 
+### 方式 1：部署检测工具（推荐）
+双击运行 `tools\tuner_check.bat`，报告自动保存到**桌面** `tuner_check_report.txt`。
+
+> ⚠️ 注意：报告不是生成在仓库目录里，而是在你的用户桌面。
+
+### 方式 2：Antigravity 内验证
 在 Antigravity 聊天框输入：
 ```
 测试调教状态
 ```
 正常应看到 Agent 确认已加载所有 Rules 和 Skills 的完整报告。
+
+---
+
+## ♻️ 升级 / 卸载
+
+### 升级（无需卸载，直接覆盖）
+```bat
+# 进入仓库目录，拉取最新版后重新运行即可
+git pull
+setup.bat
+```
+新版会自动备份原有 GEMINI.md 到 `.tuner-backup\`，不会丢失数据。
+
+### 完全卸载（手动删除以下文件/文件夹）
+| 路径 | 说明 |
+|------|------|
+| `%USERPROFILE%\.gemini\GEMINI.md` | 全局 Rules |
+| `%USERPROFILE%\.gemini\antigravity\skills\` | 全局 Skills |
+| 仓库本体所在目录 | 仓库文件 |
 
 ---
 
