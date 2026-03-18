@@ -4,6 +4,18 @@ All notable changes to this project are documented here.
 
 ---
 
+## v2026.03.21 — 2026-03-18
+
+**彻底消除中文字符依赖 + 添加 .gitattributes**
+
+- **修复** 真正根本原因：Antigravity 的 AI 在当帪会自动编辑 setup.ps1，用不含 BOM 的方式覆盖文件，导致中文字符重新乱码
+- **修复** setup.ps1 内剩余的最后 1 个中文字符已移除（`通用规则` 改为 `[Common Rules]`）
+- **修复** GEMINI.md 中对应标签同步改为英文
+- **新增** `.gitattributes` 文件：锁定 `.ps1` 文件的编码和行尾格式，防止 git checkout 剥離 BOM
+- 版本升级至 v2026.03.21
+
+---
+
 ## v2026.03.20 — 2026-03-18
 
 **PowerShell 5.1 兼容性修复（重要）**
