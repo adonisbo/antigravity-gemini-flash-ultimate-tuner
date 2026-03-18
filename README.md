@@ -3,7 +3,7 @@
 > **经过多轮真实交互调教出的 Gemini 3 Flash 最强配置包**  
 > 让 Gemini 3 Flash 在 [Google Antigravity IDE](https://antigravity.google/) 中接近 Pro 级表现
 
-[![Version](https://img.shields.io/badge/Version-2026.03.18-blue)](.)
+[![Version](https://img.shields.io/badge/Version-2026.03.19-blue)](.)
 [![Platform](https://img.shields.io/badge/Platform-Antigravity%20IDE-orange)](https://antigravity.google/)
 [![Model](https://img.shields.io/badge/Model-Gemini%203%20Flash-green)](.)
 [![License](https://img.shields.io/badge/License-MIT-yellow)](./LICENSE)
@@ -139,6 +139,48 @@ antigravity-gemini-flash-ultimate-tuner/
 ---
 
 ## 🚀 快速安装
+
+### ⭐ 方式 0：在 Antigravity 对话框一键安装（最推荐）
+
+**适用场景**：已在 Antigravity 中选择好模型，希望直接让 AI 帮你完成整个安装。
+
+> **前提条件**：选择任意模型均可使用，推荐先用 Gemini 3 Flash。项目地址：[https://github.com/adonisbo/antigravity-gemini-flash-ultimate-tuner](https://github.com/adonisbo/antigravity-gemini-flash-ultimate-tuner)
+
+**将以下 prompt 复制到 Antigravity 对话框中发送即可：**
+
+---
+
+```
+请帮我安装 Antigravity Ultimate Tuner 项目。请按以下步骤严格执行，所有命令均在 PowerShell 终端中运行：
+
+步骤 1：克隆仓库到 Antigravity scratch 目录
+  cd $env:USERPROFILE\.gemini\antigravity\scratch
+  git clone https://github.com/adonisbo/antigravity-gemini-flash-ultimate-tuner.git
+  cd antigravity-gemini-flash-ultimate-tuner
+
+步骤 2：执行静默全局安装（无需手动确认任何选项，跳过所有交互）
+  powershell -ExecutionPolicy Bypass -File setup.ps1 -Silent -GlobalOnly
+
+步骤 3：验证安装结果
+  powershell -ExecutionPolicy Bypass -File setup.ps1 -Check
+
+安装完成后，请告诉我：
+1. 全局 GEMINI.md 安装路径（应为 C:\Users\<用户名>\.gemini\GEMINI.md）
+2. 全局 Skills 安装路径（应为 C:\Users\<用户名>\.gemini\antigravity\skills\...）
+3. 检测结果中 PASS/FAIL/WARN 各多少项
+4. 如果有任何 FAIL，请显示详细错误并修复
+```
+
+---
+
+> 💡 **关于模型标位：** 上面的 prompt 默认安装 LITE MODE（适用于 Gemini 3 Flash / GPT-OSS 120B）。
+> 安装完成后，如需切换模型标位，在对话框输入：
+> 
+> ```
+> 请帮我运行：powershell -ExecutionPolicy Bypass -File $env:USERPROFILE\.gemini\antigravity\scratch\antigravity-gemini-flash-ultimate-tuner\setup.ps1 -SwitchMode
+> ```
+
+---
 
 ### 方式 A：Windows（推荐）
 ```bat
