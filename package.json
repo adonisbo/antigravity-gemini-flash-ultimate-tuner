@@ -1,0 +1,47 @@
+{
+  "name": "antigravity-gemini-flash-ultimate-tuner",
+  "version": "2026.3.17",
+  "description": "The ultimate tuner for Gemini 3 Flash in Antigravity IDE - Rules + Skills to maximize AI coding performance",
+  "main": "npx-install.js",
+  "bin": {
+    "antigravity-gemini-flash-ultimate-tuner": "./npx-install.js"
+  },
+  "scripts": {
+    "install-local": "node npx-install.js",
+    "conflict-check": "powershell -ExecutionPolicy Bypass -File conflict-check.ps1"
+  },
+  "keywords": [
+    "antigravity",
+    "gemini",
+    "gemini-flash",
+    "ai-skills",
+    "agentic-coding",
+    "skills",
+    "rules",
+    "tuner",
+    "google-antigravity",
+    "gemini-3-flash"
+  ],
+  "author": "adonisbo",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "README.md",
+    "GEMINI.md",
+    "setup.bat",
+    "setup.sh",
+    "npx-install.js",
+    "conflict-check.ps1",
+    ".agent/"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adonisbo/antigravity-gemini-flash-ultimate-tuner.git"
+  },
+  "homepage": "https://github.com/adonisbo/antigravity-gemini-flash-ultimate-tuner#readme",
+  "bugs": {
+    "url": "https://github.com/adonisbo/antigravity-gemini-flash-ultimate-tuner/issues"
+  }
+}
