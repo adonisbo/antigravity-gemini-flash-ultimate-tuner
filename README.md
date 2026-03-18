@@ -350,6 +350,7 @@ setup.bat   # Windows
 
 **最新版本：**
 
+- **v2026.03.21** — 彻底消除 setup.ps1 中文字符依赖，新增 `.gitattributes`
 - **v2026.03.20** — 修复 setup.ps1 在 PowerShell 5.1 上的兼容性问题（UTF-8 BOM + 移除 `?.` 运算符）
 - **v2026.03.19** — 新增安装后操作菜单、模型档位切换（LITE/STANDARD/PRO）
 - **v2026.03.18** — 修复乱码、xcopy 循环复制、全局 Skills 路径
