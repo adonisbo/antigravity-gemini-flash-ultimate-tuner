@@ -346,23 +346,14 @@ setup.bat   # Windows
 
 ## 📝 更新日志
 
-### v2026.03.18（稳定性修复版）
-- **修复** setup.bat 中文乱码问题（改为 3 行 ASCII 启动器 + setup.ps1 主逻辑）
-- **修复** xcopy 循环复制错误（改用 PowerShell Copy-Item）
-- **修复** 全局 Skills 安装路径不正确（现在正确写入 `~/.gemini/antigravity/skills/`）
-- **新增** `tools/` 工具目录：tuner_check.bat/ps1（部署检测）、conflict_check.bat
-- **新增** setup.ps1 支持命令行参数：`-Silent`、`-GlobalOnly`、`-Check`
-- setup.ps1 支持自动备份已有 GEMINI.md
+详细更新记录请查看 [CHANGELOG.md](./CHANGELOG.md)。
 
-### v2026.03.17（初始发布）
-- 5 个经过多轮真实调教验证的核心 Skills
-- Windows/Linux/macOS 三端安装脚本
-- PowerShell 冲突检测脚本
-- npx 安装器支持
-- Meta-Skill（Tuner-Update）：自检查更新机制
-- sample_project：最小化 FastAPI 示例
-- GitHub Actions CI 工作流
-- 调教原理章节
+**最新版本：**
+
+- **v2026.03.20** — 修复 setup.ps1 在 PowerShell 5.1 上的兼容性问题（UTF-8 BOM + 移除 `?.` 运算符）
+- **v2026.03.19** — 新增安装后操作菜单、模型档位切换（LITE/STANDARD/PRO）
+- **v2026.03.18** — 修复乱码、xcopy 循环复制、全局 Skills 路径
+- **v2026.03.17** — 初始发布
 
 ---
 
