@@ -138,24 +138,35 @@ Write-Ok "GEMINI.md 已部署 → $dstGemini"
 Write-Host ""
 
 # ══════════════════════════════════════════════════════════════
-# 步骤 3：部署 Skills（使用 robocopy 替代 xcopy，避免循环复制）
+# 步骤 3：部署 Skills
 # ══════════════════════════════════════════════════════════════
 Write-Host "[3/4] 部署 Skills..." -ForegroundColor White
 $dstSkills = Join-Path $AGENT_DIR "skills"
 
-# 使用 PowerShell Copy-Item（完全避免 xcopy 循环复制问题）
-$skills = Get-ChildItem $SRC_SKILLS -Directory
-$successCount = 0
-foreach ($skill in $skills) {
-    $dstSkillDir = Join-Path $dstSkills $skill.Name
-    New-Item -ItemType Directory -Force -Path $dstSkillDir | Out-Null
-    $skillFile = Join-Path $skill.FullName "SKILL.md"
-    if (Test-Path $skillFile) {
-        Copy-Item $skillFile (Join-Path $dstSkillDir "SKILL.md") -Force
-        Write-Ok $skill.Name
-        $successCount++
-    } else {
-        Write-Warn "$($skill.Name) - 找不到 SKILL.md，跳过"
+# 检测源路径与目标路径是否相同（当从仓库自身运行时会出现此情况）
+$srcResolved = (Resolve-Path $SRC_SKILLS -ErrorAction SilentlyContinue)?.Path
+$dstResolved = (Resolve-Path $dstSkills -ErrorAction SilentlyContinue)?.Path
+if ($srcResolved -and $dstResolved -and ($srcResolved.TrimEnd('\') -eq $dstResolved.TrimEnd('\'))) {
+    Write-Info "项目级 Skills 目录与源目录相同，跳过本地复制（直接使用仓库内文件）"
+    $skills = Get-ChildItem $SRC_SKILLS -Directory
+    foreach ($skill in $skills) { Write-Ok "$($skill.Name) (已就位)" }
+    $successCount = $skills.Count
+} else {
+    # 正常情况：源目录 ≠ 目标目录，执行复制
+    New-Item -ItemType Directory -Force -Path $dstSkills | Out-Null
+    $skills = Get-ChildItem $SRC_SKILLS -Directory
+    $successCount = 0
+    foreach ($skill in $skills) {
+        $dstSkillDir = Join-Path $dstSkills $skill.Name
+        New-Item -ItemType Directory -Force -Path $dstSkillDir | Out-Null
+        $skillFile = Join-Path $skill.FullName "SKILL.md"
+        if (Test-Path $skillFile) {
+            Copy-Item $skillFile (Join-Path $dstSkillDir "SKILL.md") -Force
+            Write-Ok $skill.Name
+            $successCount++
+        } else {
+            Write-Warn "$($skill.Name) - 找不到 SKILL.md，跳过"
+        }
     }
 }
 Write-Host "  共部署 $successCount 个 Skills" -ForegroundColor Gray
